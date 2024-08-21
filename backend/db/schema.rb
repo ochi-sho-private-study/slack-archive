@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "priority", comment: "優先度"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["label"], name: "unique_index_label_on_tags", unique: true
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
