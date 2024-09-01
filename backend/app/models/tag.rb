@@ -16,7 +16,12 @@
 #  unique_index_label_on_tags  (label) UNIQUE
 #
 class Tag < ApplicationRecord
-  validates :label, presence: true, uniqueness: true
   has_many :memo_tags, dependent: :destroy
   has_many :memos, through: :memo_tags
+
+  validates :label, presence: true, uniqueness: true, length: { maximum: 30 }
+  validates :priority, presence: true
+  validates :color, presence: true
+
+  enum color: { white: 0, black: 10, red: 20, orange: 30, yellow: 40, green: 50, blue: 60, purple: 70 }
 end

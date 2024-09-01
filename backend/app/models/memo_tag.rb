@@ -7,18 +7,19 @@
 #  id              :bigint           not null, primary key
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  memo_id(メモID) :bigint           not null
-#  tag_id(タグID)  :bigint           not null
+#  memo_id(メモID) :bigint
+#  tag_id(タグID)  :bigint
 #
 # Indexes
 #
-#  index_memo_tags_on_memo_id  (memo_id)
-#  index_memo_tags_on_tag_id   (tag_id)
+#  fk_tag_id_on_memo_tags                        (tag_id)
+#  index_memo_tags_on_memo_id                    (memo_id)
+#  unique_index_memo_id_and_tag_id_on_memo_tags  (memo_id,tag_id) UNIQUE
 #
 # Foreign Keys
 #
-#  fk_memo_tags_memo_id  (memo_id => memos.id)
-#  fk_memo_tags_tag_id   (tag_id => tags.id)
+#  fk_memo_id_on_memo_tags  (memo_id => memos.id)
+#  fk_tag_id_on_memo_tags   (tag_id => tags.id)
 #
 class MemoTag < ApplicationRecord
   belongs_to :memo
