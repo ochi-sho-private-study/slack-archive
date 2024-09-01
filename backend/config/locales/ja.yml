@@ -6,6 +6,10 @@ ja:
         content: コンテンツ
       comment:
         content: 内容
+      tag:
+        label: ラベル
+        color: 色
+        priority: 優先度
   errors:
     messages:
       blank: を入力してください
