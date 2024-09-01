@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tags
@@ -15,7 +17,7 @@
 #
 FactoryBot.define do
   factory :tag do
-    label { Faker::Lorem.sentence(word_count:5) }
+    label { Faker::Lorem.sentence(word_count: 5) }
     color { 0 }
     priority { 0 }
   end

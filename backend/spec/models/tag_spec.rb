@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tags
@@ -46,8 +48,10 @@ RSpec.describe Tag do
       before { tag.label = Faker::Lorem.characters(number: 31) }
 
       it 'falseになり、errorsが格納される' do
-        expect(tag).not_to be_valid
-        expect(tag.errors.full_messages).to eq ['ラベルは30文字以内で入力してください']
+        aggregate_failures do
+          expect(tag).not_to be_valid
+          expect(tag.errors.full_messages).to eq ['ラベルは30文字以内で入力してください']
+        end
       end
     end
 
