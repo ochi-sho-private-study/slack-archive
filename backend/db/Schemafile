@@ -1,12 +1,12 @@
 create_table 'users', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
-  t.string 'email', null: false, comment: 'ユーザーのEmailアドレス'
-  t.string 'password', null: false, comment: 'ユーザーのpassword'
+  t.string 'email', null: false, limit: 30, comment: 'ユーザーのEmailアドレス'
+  t.string 'password', null: false, limit: 30, comment: 'ユーザーのpassword'
   t.timestamp 'created_at', null: false
   t.timestamp 'updated_at', null: false
 end
 
 create_table 'memos', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
-  t.string 'title', null: false, comment: 'メモのタイトル'
+  t.string 'title', null: false, limit: 30, comment: 'メモのタイトル'
   t.text 'content', null: false, comment: 'メモの本文'
   t.timestamp 'created_at', null: false
   t.timestamp 'updated_at', null: false
@@ -23,21 +23,17 @@ end
 add_foreign_key 'comments', 'memos', column: 'memo_id', name: 'fk_comments_memo_id'
 
 create_table 'memo_tags', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
-  t.bigint "memo_id", null: false, comment: 'メモID'
-  t.bigint "tag_id", null: false, comment: 'タグID'
+  t.references :memo, null: false, foreign_key: { name: 'fk_memo_id_on_memo_tags' }, comment: 'メモID'
+  t.references :tag, null: false, foreign_key: { name: 'fk_tag_id_on_memo_tags' }, comment: 'タグID'
   t.datetime "created_at", null: false
   t.datetime "updated_at", null: false
-  t.index ["memo_id"], name: "index_memo_tags_on_memo_id"
-  t.index ["tag_id"], name: "index_memo_tags_on_tag_id"
+  t.index %w[memo_id tag_id], unique: true, name: "unique_index_memo_id_and_tag_id_on_memo_tags"
 end
 
-add_foreign_key 'memo_tags', 'memos', column: 'memo_id', name: 'fk_memo_tags_memo_id'
-add_foreign_key 'memo_tags', 'tags', column: 'tag_id', name: 'fk_memo_tags_tag_id'
-
 create_table 'tags', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
-  t.string "label", null: false, index: { unique: true, name: 'unique_index_label_on_tags' }, comment: 'ラベル'
-  t.string "color", comment: '色'
-  t.integer "priority", comment: '優先度'
+  t.string :label, null: false, limit: 30, index: { unique: true, name: 'unique_index_label_on_tags' }, comment: 'ラベル'
+  t.integer :color, null: false, comment: '色'
+  t.float :priority, null: false, comment: '優先度'
   t.datetime "created_at", null: false
   t.datetime "updated_at", null: false
 end
