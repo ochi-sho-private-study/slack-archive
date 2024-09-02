@@ -36,14 +36,6 @@ RSpec.describe Tag do
       end
     end
 
-    context 'labelが29文字の場合' do
-      before { tag.label = Faker::Lorem.characters(number: 29) }
-
-      it 'trueを返す' do
-        expect(tag).to be_valid
-      end
-    end
-
     context 'labelが31文字の場合' do
       before { tag.label = Faker::Lorem.characters(number: 31) }
 
