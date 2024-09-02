@@ -15,6 +15,7 @@ class Memo < ApplicationRecord
   has_many :memo_tags, dependent: :destroy
   has_many :tags, through: :memo_tags
 
-  validates :title, :content, presence: true
+  validates :title, presence: true
   validates :title, length: { maximum: 30 }
+  validates :content, presence: true
 end
