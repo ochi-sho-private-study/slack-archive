@@ -18,7 +18,7 @@
 FactoryBot.define do
   factory :tag do
     label { Faker::Lorem.sentence(word_count: 5) }
-    color { 0 }
+    color { Tag.colors.values.sample }
     priority { 0 }
   end
 end
